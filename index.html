@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #weatherForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #008cba;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005f5f;
+        }
+
+        #weatherInfo {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #weatherIcon {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Dashboard</h1>
+    <form id="weatherForm">
+        <input type="text" id="cityInput" placeholder="Enter city name" required>
+        <button type="submit">Get Weather</button>
+    </form>
+    <div id="weatherInfo" style="display: none;">
+        <p>Temperature: <span id="temperature"></span>°C</p>
+        <p>Humidity: <span id="humidity"></span>%</p>
+        <img id="weatherIcon" src="" alt="Weather Icon">
+    </div>
+
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const mockData = {
+                "name": "Sample City",
+                "main": {
+                    "temp": 22,
+                    "humidity": 60
+                },
+                "weather": [{
+                    "icon": "04d"
+                }]
+            };
+
+            const cityName = document.getElementById('cityInput').value;
+
+            if (cityName.toLowerCase() === "sample city") {
+                displayWeather(mockData);
+            } else {
+                alert("Please enter 'Sample City' as the city name for demonstration.");
+            }
+        });
+
+        function displayWeather(data) {
+            document.getElementById('temperature').textContent = data.main.temp;
+            document.getElementById('humidity').textContent = data.main.humidity;
+            document.getElementById('weatherIcon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+            document.getElementById('weatherInfo').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
